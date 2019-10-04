@@ -16,10 +16,9 @@ avec click droit sur antlr4 -> Build Path -> Use as Source Folder
 
 */
 
-grammar ILPMLgrammar1;
+grammar ILPMLgrammar1tme2;
 
-@header {
-    package antlr4;
+@header {package antlr4;
 }
 
 /*
@@ -70,7 +69,6 @@ expr returns [com.paracamplus.ilp1.interfaces.IASTexpression node]//ce noeud ser
 
 // variables
     | var=IDENT # Variable
-
 // déclaration de variable locale
     | 'let' vars+=IDENT '=' vals+=expr ('and' vars+=IDENT '=' vals+=expr)* 
       'in' body=expr # Binding
@@ -78,9 +76,18 @@ expr returns [com.paracamplus.ilp1.interfaces.IASTexpression node]//ce noeud ser
  // alternative (if then else)
     | 'if' condition=expr 'then' consequence=expr 
         ('else' alternant=expr)? # Alternative
-    ;
     
-       
+    // Affectation variable globale
+    | vars+=IDENT '=' vals+=expr ( vars+=IDENT '=' vals+=expr)*   # Affectation
+    
+    
+ //Boucle while 
+ 	| 'while' verif=expr 'do' body=expr
+ 	 #While
+ //Definition fonction 
+ 	| 'function' name+=IDENT '('vars+=IDENT ( ',' vars+=IDENT)*')' body=expr #Function
+ 	
+ 	 ;
 /*
  * Règles lexicales.
  * 
@@ -108,3 +115,5 @@ COMMENT : '/*' ('*' ~[/] | ~[*])* '*/' -> skip;
 
 // Espaces
 SPACE : [ \t\r\n]+ -> skip;
+
+
