@@ -1,0 +1,5 @@
+function doubler (x)
+(
+    x * 2;
+);
+doubler(2)
