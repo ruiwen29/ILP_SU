@@ -1,5 +1,0 @@
-package com.paracamplus.ilp1.ilp1tme1.sequence;
-
-public interface IASTfactory extends com.paracamplus.ilp1.interfaces.IASTfactory{
-
-}
